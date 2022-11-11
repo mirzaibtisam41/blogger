@@ -2,6 +2,12 @@ import { Schema, model, models } from "mongoose";
 
 const blogSchema = new Schema({
 
+    user: {
+        type: Schema.Types.ObjectId,
+        ref: 'User',
+        required: true
+    },
+
     category: {
         type: Schema.Types.ObjectId,
         ref: 'Category',

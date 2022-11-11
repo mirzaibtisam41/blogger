@@ -2,27 +2,43 @@
 @tailwind components;
 @tailwind utilities;
 
-.nvs {
-    position: relative;
+html {
+  scroll-behavior: smooth;
 }
 
-.blog-category {
-    display: none;
+.nvs {
+  position: relative;
+}
+
+.blog-category,
+.profile-category {
+  display: none;
 }
 
 .blogs:hover .blog-category {
-    display: block !important;
-    position: absolute !important;
-    top: 24px !important;
-    background-color: rgb(248, 248, 248) !important;
-    transition: position 1s linear !important;
+  display: block !important;
+  position: absolute !important;
+  top: 24px !important;
+  background-color: rgb(248, 248, 248) !important;
+  transition: position 1s linear !important;
+}
+
+.profile:hover .profile-category {
+  display: block !important;
+  position: absolute !important;
+  top: 40px !important;
+  background-color: rgb(248, 248, 248) !important;
+  transition: position 1s linear !important;
 }
 
 .blog-category li {
-    padding: 10px 15px;
-    border-bottom: 1px solid rgb(233, 233, 233);
+  padding: 10px 15px;
 }
 
-.blog-category li:hover {
-    opacity: 0.7;
+.profile-category li {
+  padding: 10px 20px;
+}
+
+.textArea:focus-visible {
+  outline: none !important;
 }

@@ -3,6 +3,7 @@ import useSWR from "swr";
 import { useRouter } from "next/router";
 import moment from "moment";
 import RelatedBlogs from "./relatedBlogs";
+import { ClockLoader } from 'react-spinners';
 
 const fetcher = (...args) => fetch(...args).then((res) => res.json());
 
@@ -13,7 +14,7 @@ const post = () => {
   return (
     <section className="text-gray-600 body-font">
       {!data ? (
-        <div>Loading...</div>
+        <div className="flex justify-center w-full"><ClockLoader /></div>
       ) : (
         <div className="container px-5 py-10 mx-auto flex flex-col">
           <div className="lg:w-4/6 mx-auto">

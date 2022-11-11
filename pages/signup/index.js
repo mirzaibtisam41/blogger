@@ -24,6 +24,13 @@ const index = () => {
           <h2 className="text-gray-900 text-lg font-medium title-font mb-5">
             Sign Up
           </h2>
+          {
+            User?.error &&
+            <div className="bg-red-100 border mb-4 border-red-400 text-red-700 px-4 py-3 rounded relative" role="alert">
+              <strong className="font-bold">Error! </strong>
+              <span className="block sm:inline">Email already in use try another </span>
+            </div>
+          }
           <div className="relative mb-4">
             <label
               htmlFor="full-name"

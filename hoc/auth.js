@@ -5,7 +5,7 @@ const index = (Component) => {
     return () => {
         const User = useSelector(state => state.user);
         const router = useRouter();
-        return User?.token
+        return !User?.token
             ?
             setTimeout(() => {
                 router.push('/');

@@ -1,24 +1,9 @@
 import nextConnect from 'next-connect';
-import { upload } from '../../../middleware';
 import Blog from '../../../models/blog';
 import Category from '../../../models/category';
 import { mongoConnect } from '../../../utils/db';
 
 const apiRoute = nextConnect();
-const uploadMiddleware = upload.single('file');
-apiRoute.use(uploadMiddleware);
-
-apiRoute.post((req, res) => {
-    mongoConnect();
-    req.body.image = `/uploads/${req.file.originalname}`;
-    Blog.create(req.body)
-        .then(data => {
-            return res.status(200).json(data);
-        })
-        .catch(err => {
-            return res.status(400).json(err);
-        });
-});
 
 apiRoute.get((req, res) => {
     mongoConnect();
@@ -34,7 +19,7 @@ apiRoute.get((req, res) => {
         { $unwind: '$Category' },
         { $project: { category: 0 } },
         { $sort: { createdAt: -1 } },
-        { $limit: 6 }
+        { $limit: 8 }
     ])
         .then(data => {
             return res.status(200).json(data);
@@ -42,10 +27,6 @@ apiRoute.get((req, res) => {
         .catch(err => {
             return res.status(400).json(err);
         });
-});
-
-apiRoute.post((req, res) => {
-    console.log(req.body);
 });
 
 export default apiRoute;
