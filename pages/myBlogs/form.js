@@ -122,13 +122,13 @@ const form = ({ fetcher, setOpen }) => {
                     </label>
                     <textarea
                         ref={register}
-                        {...register('definition', { required: true })}
+                        {...register('definition', { required: true, minLength: 50 })}
                         id="message"
                         rows="4"
                         className="textArea block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                         placeholder="Define your Blog..."
                     ></textarea>
-                    {errors.definition && <p className="text-red-500 text-xs italic mb-3">Definition is required.</p>}
+                    {errors.definition && <p className="text-red-500 text-xs italic mb-3">Definition is required (Min 50 characters).</p>}
                 </div>
 
                 <div className="w-full px-3 mt-3">
@@ -139,13 +139,13 @@ const form = ({ fetcher, setOpen }) => {
                     </label>
                     <textarea
                         ref={register}
-                        {...register('description', { required: true })}
+                        {...register('description', { required: true, minLength: 50 })}
                         id="message"
                         rows="4"
                         className="textArea block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                         placeholder="Explain your blog..."
                     ></textarea>
-                    {errors.description && <p className="text-red-500 text-xs italic mb-3">Description is required.</p>}
+                    {errors.description && <p className="text-red-500 text-xs italic mb-3">Description is required (Min 50 characters).</p>}
                 </div>
 
                 <div className="w-full px-3 mt-3">

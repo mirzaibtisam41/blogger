@@ -60,7 +60,7 @@ const index = () => {
                                         {
                                             data?.blogs?.map((item, index) => {
                                                 return (
-                                                    <div key={index} className="xl:w-1/4 md:w-1/2 p-4 cursor-pointer">
+                                                    <div key={index} className="w-full xl:w-1/4 md:w-1/2 p-4 cursor-pointer">
                                                         <div className="bg-gray-100 p-6 rounded-lg">
                                                             <img className="h-40 rounded w-full object-center mb-6" src={item?.image} alt="content" />
                                                             <h3 className="tracking-widest text-green-500 text-xs font-medium title-font">{item?.Category?.category}</h3>
