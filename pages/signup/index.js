@@ -3,7 +3,8 @@ import { useForm } from 'react-hook-form';
 import { useDispatch, useSelector } from 'react-redux';
 import { FadeLoader } from 'react-spinners';
 import HOC from '../../hoc';
-import { createUser } from '../../redux/actions';
+import { addUserData, removeUserData, waitingUserData } from '../../redux/reducers/userSlice';
+import axios from 'axios';
 
 const index = () => {
   const dispatch = useDispatch();
@@ -11,10 +12,18 @@ const index = () => {
   const [match, setMatch] = useState(true);
   const { register, handleSubmit, formState: { errors } } = useForm();
 
-  const submitData = (data) => {
-    if (data.password !== data.confirmpassword) return setMatch(false);
+  const submitData = async (_data) => {
+    if (_data.password !== _data.confirmpassword) return setMatch(false);
     else setMatch(true);
-    dispatch(createUser(data));
+    try {
+      dispatch(waitingUserData());
+      const { data } = await axios.post(`/api/user/create`, _data);
+      if (data) {
+        dispatch(addUserData(data));
+      }
+    } catch (error) {
+      dispatch(removeUserData(error?.response?.data?.error));
+    }
   }
 
   return (
@@ -28,7 +37,7 @@ const index = () => {
             User?.error &&
             <div className="bg-red-100 border mb-4 border-red-400 text-red-700 px-4 py-3 rounded relative" role="alert">
               <strong className="font-bold">Error! </strong>
-              <span className="block sm:inline">Email already in use try another </span>
+              <span className="block sm:inline">{User?.error} </span>
             </div>
           }
           <div className="relative mb-4">

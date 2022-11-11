@@ -16,7 +16,7 @@ const post = () => {
       {!data ? (
         <div className="flex justify-center w-full"><ClockLoader /></div>
       ) : (
-        <div className="container px-5 py-10 mx-auto flex flex-col">
+        <div className="container px-5 py-3 md:py-10 mx-auto flex flex-col">
           <div className="lg:w-4/6 mx-auto">
             <div className="rounded-lg h-64 overflow-hidden">
               <img

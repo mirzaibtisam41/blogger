@@ -54,39 +54,24 @@ const index = () => {
               </a>
             </>
           }
-        </nav>
-        {
-          !User?.token
-            ?
-            <React.Fragment>
-              <button
+          {
+            !User?.token &&
+            <>
+              <a
+                className="mr-5 hover:text-green-500"
                 onClick={() => router.push("/signup")}
-                className="inline-flex mr-2 items-center bg-green-500 text-white border-0 py-1 px-3 focus:outline-none hover:bg-green-400 rounded text-base mt-4 md:mt-0"
               >
-                SignUp
-              </button>
-
-              <button
+                Sign Up
+              </a>
+              <a
+                className="mr-5 hover:text-green-500"
                 onClick={() => router.push("/login")}
-                className="inline-flex items-center bg-green-500 text-white border-0 py-1 px-3 focus:outline-none hover:bg-green-400 rounded text-base mt-4 md:mt-0"
               >
-                SignIn
-              </button>
-
-            </React.Fragment>
-            :
-            <div className="cursor-pointer profile relative">
-              <button
-                onClick={() => {
-                  localStorage.clear();
-                  router.reload();
-                }}
-                className="inline-flex items-center bg-green-500 text-white border-0 py-1 px-3 focus:outline-none hover:bg-green-400 rounded text-base mt-4 md:mt-0"
-              >
-                SignOut
-              </button>
-            </div>
-        }
+                Sign In
+              </a>
+            </>
+          }
+        </nav>
       </div>
     </header >
   );

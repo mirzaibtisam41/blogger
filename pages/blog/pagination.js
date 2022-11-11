@@ -4,7 +4,7 @@ const pagination = ({ changePage, count, ppp }) => {
     let postPerPage = ppp ? 8 : 5;
     const [page, setPage] = useState(0);
     return (
-        <div className="flex flex-col items-center mt-14">
+        <div className="flex flex-col items-center md:mt-14">
             <div className="inline-flex mt-2 xs:mt-0">
                 <button disabled={page === 0 ? true : false} onClick={() => {
                     changePage(page - 1);

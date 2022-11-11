@@ -11,7 +11,7 @@ const posts = () => {
   return (
     <section className="text-gray-600 body-font" id='posts'>
       <div className="container px-5 mx-auto">
-        <div className="flex flex-wrap w-full mb-20">
+        <div className="flex flex-wrap w-full mb-3 md:mb-20">
           <div className="lg:w-1/2 w-full mb-6 lg:mb-0">
             <h1 className="sm:text-3xl text-2xl font-medium title-font mb-2 text-gray-900">Latest Blogs</h1>
             <div className="h-1 w-20 bg-green-500 rounded" />

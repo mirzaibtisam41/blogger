@@ -3,7 +3,9 @@ import { useForm } from 'react-hook-form';
 import { useDispatch, useSelector } from 'react-redux';
 import { FadeLoader } from 'react-spinners';
 import HOC from '../../hoc/auth';
-import { updateUser } from '../../redux/actions';
+import { addUserData, removeUserData, waitingUserData } from '../../redux/reducers/userSlice';
+import axios from 'axios';
+import toast, { Toaster } from 'react-hot-toast';
 
 const index = () => {
     const dispatch = useDispatch();
@@ -13,18 +15,31 @@ const index = () => {
 
     const options = { headers: { Authorization: `Bearer ${User?.token}` } };
 
-    const submitData = (data) => {
-        if (data.password.length > 0) {
-            if (data.password !== data.confirmpassword) return setMatch(false);
+    const submitData = async (_data) => {
+        if (_data.password.length > 0) {
+            if (_data.password !== _data.confirmpassword) return setMatch(false);
         }
         else setMatch(true);
-        dispatch(updateUser({ obj: data, options }));
+        try {
+            dispatch(waitingUserData());
+            const { data } = await axios.post(`/api/user/update`, _data, options);
+            if (data) {
+                toast.success('Profile updated successfully');
+                dispatch(addUserData(data));
+            }
+        } catch (error) {
+            dispatch(removeUserData(error?.response?.data?.error));
+        }
     }
 
     return (
         <section className="text-gray-600 body-font">
-            <div className="container px-5 py-10 mx-auto flex flex-wrap items-center">
-                <form onSubmit={handleSubmit(submitData)} className="lg:w-3/6 mx-auto md:w-1/2 bg-gray-100 rounded-lg p-8 flex flex-col md:ml-auto w-full mt-10 md:mt-0">
+            <Toaster
+                position="bottom-center"
+                reverseOrder={false}
+            />
+            <div className="container px-5 py-5 md:py-10 mx-auto flex flex-wrap items-center">
+                <form onSubmit={handleSubmit(submitData)} className="lg:w-3/6 mx-auto md:w-1/2 bg-gray-100 rounded-lg p-8 flex flex-col md:ml-auto w-full mt-0 md:mt-0">
                     <h2 className="text-gray-900 text-lg font-medium title-font mb-5">
                         Update Profile
                     </h2>
