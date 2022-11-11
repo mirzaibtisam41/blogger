@@ -3,8 +3,10 @@ import passwordHash from 'password-hash';
 import { auth } from '../../../middleware';
 import User from "../../../models/user";
 import { mongoConnect } from "../../../utils/db";
+import cors from 'cors';
 
 const apiRoute = nextConnect();
+apiRoute.use(cors());
 apiRoute.use(auth);
 
 apiRoute.post((req, res) => {
