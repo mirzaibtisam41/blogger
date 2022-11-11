@@ -61,17 +61,32 @@ const index = () => {
                 className="mr-5 hover:text-green-500"
                 onClick={() => router.push("/signup")}
               >
-                Sign Up
+                Signup
               </a>
               <a
                 className="mr-5 hover:text-green-500"
                 onClick={() => router.push("/login")}
               >
-                Sign In
+                Login
               </a>
             </>
           }
         </nav>
+        {
+          User?.token
+          &&
+          <div className="cursor-pointer profile relative">
+            <button
+              onClick={() => {
+                localStorage.clear();
+                router.reload();
+              }}
+              className="inline-flex items-center bg-green-500 text-white border-0 py-1 px-3 focus:outline-none hover:bg-green-400 rounded text-base mt-4 md:mt-0"
+            >
+              Logout
+            </button>
+          </div>
+        }
       </div>
     </header >
   );

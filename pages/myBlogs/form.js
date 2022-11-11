@@ -8,7 +8,7 @@ import toast, { Toaster } from 'react-hot-toast';
 
 const fetcher = (...args) => fetch(...args).then((res) => res.json());
 
-const form = ({ datas, setData, setOpen }) => {
+const form = ({ fetcher, setOpen }) => {
     const { register, handleSubmit, formState: { errors } } = useForm();
     const User = useSelector(state => state.user);
     const { data, error } = useSWR("/api/category", fetcher);
@@ -21,28 +21,34 @@ const form = ({ datas, setData, setOpen }) => {
         else setCategory(false);
 
         const formData = new FormData();
-        formData.append('heading', data.heading);
-        formData.append('category', data.category);
-        formData.append('definition', data.definition);
-        formData.append('description', data.description);
         formData.append('file', data.file[0]);
+        formData.append('upload_preset', 'blogger');
+        setLoading(true);
 
-        try {
-            setLoading(true);
-            const res = await axios.post('/api/blog/create', formData, {
-                headers: {
-                    Authorization: `Bearer ${User?.token}`
+        fetch('https://api.cloudinary.com/v1_1/doiugxccx/image/upload', {
+            method: 'POST',
+            body: formData
+        })
+            .then(res => res.json())
+            .then(async _data => {
+                delete data.file;
+                data.image = _data.secure_url;
+                try {
+                    const res = await axios.post('/api/blog/create', data, {
+                        headers: {
+                            Authorization: `Bearer ${User?.token}`
+                        }
+                    });
+                    if (res.data) {
+                        setLoading(false);
+                        toast.success('Blog Created Successfully');
+                        fetcher();
+                    }
+                } catch (error) {
+                    setLoading(false);
+                    console.log(error);
                 }
             });
-            if (res.data) {
-                setLoading(false);
-                toast.success('Blog Created Successfully');
-                setData({ blogs: [res.data, ...datas.blogs], count: datas?.count + 1 })
-            }
-        } catch (error) {
-            setLoading(false);
-            console.log(error);
-        }
     }
 
     return (

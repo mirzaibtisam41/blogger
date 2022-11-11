@@ -8,6 +8,7 @@ apiRoute.use(auth);
 
 apiRoute.post((req, res) => {
     mongoConnect();
+    console.log(req.body);
     Blog.findOneAndDelete({ _id: req.body.id })
         .then(data => {
             return res.status(200).json(data);

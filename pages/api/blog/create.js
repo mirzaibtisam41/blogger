@@ -1,16 +1,13 @@
 import nextConnect from 'next-connect';
-import { auth, upload } from '../../../middleware';
+import { auth } from '../../../middleware';
 import Blog from '../../../models/blog';
 import { mongoConnect } from '../../../utils/db';
 
 const apiRoute = nextConnect();
-const uploadMiddleware = upload.single('file');
 apiRoute.use(auth);
-apiRoute.use(uploadMiddleware);
 
 apiRoute.post((req, res) => {
     mongoConnect();
-    req.body.image = `/uploads/${req.file.originalname}`;
     req.body.user = req.user;
     Blog.create(req.body)
         .then(data => {
@@ -25,6 +22,6 @@ export default apiRoute;
 
 export const config = {
     api: {
-        bodyParser: false
+        bodyParser: true
     },
 };

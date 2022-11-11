@@ -18,7 +18,7 @@ const index = () => {
 
     useEffect(() => {
         fetcher();
-    }, [data]);
+    }, []);
 
     const options = { headers: { Authorization: `Bearer ${User?.token}` } };
 
@@ -36,7 +36,7 @@ const index = () => {
 
     return (
         <section className="text-gray-600 body-font">
-            {open && <CreateBlog data={data} setData={setData} setOpen={setOpen} />}
+            {open && <CreateBlog fetcher={fetcher} setOpen={setOpen} />}
             <div className="container px-5 py-10 mx-auto">
                 <div className="flex flex-wrap w-full mb-20">
                     <div className="lg:w-1/2 w-full mb-6 lg:mb-0">
@@ -83,7 +83,7 @@ const index = () => {
                 }
             </div>
             {data?.count > 0 && <Pagination changePage={changePage} count={data?.count} ppp={8} />}
-            {del && <Modal setDel={setDel} del={del} blogData={data} setData={setData} />}
+            {del && <Modal fetcher={fetcher} setDel={setDel} del={del} />}
         </section>
     )
 }

@@ -3,7 +3,7 @@ import axios from 'axios';
 import { useSelector } from 'react-redux';
 import toast, { Toaster } from 'react-hot-toast';
 
-const modal = ({ del, setDel, blogData, setData }) => {
+const modal = ({ del, setDel, fetcher }) => {
     const User = useSelector(state => state.user);
     const options = { headers: { Authorization: `Bearer ${User?.token}` } };
 
@@ -13,12 +13,11 @@ const modal = ({ del, setDel, blogData, setData }) => {
         setLoader(true);
         const { data } = await axios.post('/api/blog/delete', { id: del }, options);
         if (data) {
-            let _filter = blogData?.blogs?.filter(item => item?._id != data?._id);
             setLoader(false);
             toast.success('Blog delete successfully');
             setTimeout(() => {
-                setData({ blogs: _filter, count: blogData?.count - 1 });
                 setDel(false);
+                fetcher();
             }, 2000);
         }
     }
@@ -43,7 +42,7 @@ const modal = ({ del, setDel, blogData, setData }) => {
                                 loader ? "Deleting..." : "Yes, I'm sure"
                             }
                         </button>
-                        <button disabled={!loader ? true : false} onClick={() => setDel(false)} data-modal-toggle="popup-modal" type="button" className="text-gray-500 bg-white hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-gray-200 rounded-lg border border-gray-200 text-sm font-medium px-5 py-2.5 hover:text-gray-900 focus:z-10 dark:bg-gray-700 dark:text-gray-300 dark:border-gray-500 dark:hover:text-white dark:hover:bg-gray-600 dark:focus:ring-gray-600">No, cancel</button>
+                        <button onClick={() => setDel(false)} data-modal-toggle="popup-modal" type="button" className="text-gray-500 bg-white hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-gray-200 rounded-lg border border-gray-200 text-sm font-medium px-5 py-2.5 hover:text-gray-900 focus:z-10 dark:bg-gray-700 dark:text-gray-300 dark:border-gray-500 dark:hover:text-white dark:hover:bg-gray-600 dark:focus:ring-gray-600">No, cancel</button>
                     </div>
                 </div>
             </div>

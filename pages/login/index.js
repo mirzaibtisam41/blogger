@@ -25,7 +25,7 @@ const index = () => {
 
     return (
         <section className="text-gray-600 body-font">
-            <div className="container px-5 md:py-20 mx-auto flex flex-wrap items-center">
+            <div className="container px-5 py-10 md:py-20 mx-auto flex flex-wrap items-center">
                 <form onSubmit={handleSubmit(submitData)} className="lg:w-3/6 mx-auto md:w-1/2 bg-gray-100 rounded-lg p-8 flex flex-col md:ml-auto w-full mt-0 md:mt-0">
                     <h2 className="text-gray-900 text-lg font-medium title-font mb-5">
                         Sign In
